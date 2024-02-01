@@ -1,0 +1,20 @@
+---
+layout: post
+title:  "An Unexpected Turn of Events"
+date:   2019-11-03 05:12:00 -0500
+categories: noods
+---
+
+Well, it's been a while since NooDS has seen any updates. The GitHub was silent for almost two months... but not anymore! I was actually busy behind the scenes working on a massive overhaul of the code structure, because the state it was in before was... messy, to say the least.
+
+Shortly after the last update post I implemented rotated/scaled sprites, and after that I wanted to try tackling 3D. I got as far as setting up the GXFIFO, which is how commands are sent to the 3D engine. The next step was implementing the I/O registers so that it could actually be used. But when I got to this point, it really hit me how gross my I/O system had become. In fact, it actively discouraged me from going any further with 3D because I simply didn't want to deal with it. I thought about it for a while, trying to come up with a better way to handle things. This also got me thinking about how I could improve other areas of my code, and eventually I had the brilliant idea to just scrap everything and start fresh.
+
+So I deleted all of my code and got to work reimplementing things one by one. I still had the old code available for reference, of course; in fact, most of the smaller things that I had to "reimplement" are more or less the same as before, just tweaked to be cleaner and to work with the new codebase. This new codebase would be object-oriented, unlike the previous one. It would also be endian-safe, meaning it will work on any host processor, no matter what order it stores its bytes in. This means that I can no longer use hacky pointer conversions to manipulate data. These two things went a long way for making cleaner, more maintainable code.
+
+The areas that needed to be cleaned up the most were the memory and the interpreter; both of these were completely rewritten. The new I/O register system is probably slower than the old one, but it shouldn't matter too much becuase compared to the millions of CPU cycles that are being emulated each frame, the few times the I/O registers are accessed will hardly make a difference. The interpreter, on the other hand, is now faster than it was before, and more accurate as well. The previous interpreter relied heavily on macros to reduce duplicate code, and it was confusing and messy. The new interpreter instead opts for inline functions, and although it has a lot more duplicate code than it did before, it's a lot nicer to look at and easier to work with.
+
+This rewrite ended up being a lot more beneficial than I had expected. Not only does it make me not dread working with my own code anymore, but it brought a significant speed boost and some important bug fixes as well! The collision detection in Mario and Luigi: Partners in Time is no longer busted, the touch screen now works in New Super Mario Bros., The World Ends With You doesn't jump to a bad memory location and explode when selecting something from the main menu, and many more issues that were present in old NooDS are now resolved. Not to mention Pokémon Mystery Dungeon: Exploreres of Time, Darkness, and Sky now boot and seem fully playable! And to give an idea of the speed boost, the title screen of Yoshi's Island DS went from around 155 FPS to around 255 FPS on my computer.
+
+I could go into the specifics of how my new code works, or what challenges I came across when writing it, but honestly that stuff doesn't really matter. I was working on this rewrite for so long that I'm ready to just stop thinking about it and move on. The improvements that came from it are exciting, and now that it's finally over with I can hopefully get back on track. I'll probably go back to working on 3D again, although I'm also kind of inspired to work more on the 2D engine. Regardless, progress should go back to being somewhat regular from here on out! Sorry it took so long for me to do this, but I felt it had to be done. Oh, and here are some screenshots, because you can't have a progress post without screenshots!
+
+![More various games](/images/blog/2019-11-03/1.png)

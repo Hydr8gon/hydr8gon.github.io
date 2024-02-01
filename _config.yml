@@ -1,0 +1,10 @@
+title: Hydra's Lair
+description: Emulators and Stuff
+
+github_username: Hydr8gon
+
+timezone: America/Toronto
+
+theme: minima
+plugins:
+  - jekyll-feed
