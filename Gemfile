@@ -28,5 +28,10 @@ end
 # Performance-booster for watching directories on Windows
 gem "wdm", "~> 0.1.1", :platforms => [:mingw, :x64_mingw, :mswin]
 
-gem "webrick"
-gem "json"
+# Additional dependencies that are apparently needed
+gem "base64", "~> 0.3.0"
+gem "bigdecimal", "~> 4.1"
+gem "csv", "~> 3.3"
+gem "logger", "~> 1.7"
+gem "ostruct", "~> 0.6.3"
+gem "webrick", "~> 1.8"
